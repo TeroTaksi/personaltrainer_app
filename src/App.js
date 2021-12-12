@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState } from "react";
+import { AppBar, Tabs, Tab } from "@mui/material";
+import FetchCustomers from "./components/FetchCustomers";
+import FetchTrainings from "./components/FetchTrainings";
+import MyCalendar from "./components/MyCalendar";
+import Statistics from "./components/Statistics";
 
 function App() {
+  const [value, setValue] = useState("one");
+
+  const handleChange = (event, value) => {
+    setValue(value);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <AppBar position="static" style={{ backgroundColor: "rgb(220,220,230)" }}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          textColor="secondary"
+          indicatorColor="secondary"
+          aria-label="secondary tabs example"
         >
-          Learn React
-        </a>
-      </header>
+          <Tab value="one" label="CUSTOMERS" />
+          <Tab value="two" label="TRAININGS" />
+          <Tab value="three" label="CALENDAR" />
+          <Tab value="four" label="STATISTICS" />
+        </Tabs>
+      </AppBar>
+      {value === "one" && <FetchCustomers />}
+      {value === "two" && <FetchTrainings />}
+      {value === "three" && <MyCalendar />}
+      {value === "four" && <Statistics />}
     </div>
   );
 }
